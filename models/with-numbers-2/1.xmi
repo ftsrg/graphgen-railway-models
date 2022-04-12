@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<railwaypackage:RailwayLayout xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:railwaypackage="prolan.example.railwaypackage" xsi:schemaLocation="prolan.example.railwaypackage ../../model/railway.ecore">
+  <elements xsi:type="railwaypackage:Turnout" length="10" from="//@elements.2" straight="//@finish" divergent="//@elements.4"/>
+  <elements xsi:type="railwaypackage:Segment" length="15"/>
+  <elements xsi:type="railwaypackage:Turnout" length="10" from="//@elements.0" straight="//@elements.4" divergent="//@start"/>
+  <elements xsi:type="railwaypackage:Turnout" length="10" from="//@elements.4" straight="//@elements.5"/>
+  <elements xsi:type="railwaypackage:Turnout" length="10" from="//@elements.3" straight="//@elements.0" divergent="//@elements.2"/>
+  <elements xsi:type="railwaypackage:Segment" length="15" connected="//@elements.1"/>
+  <start/>
+  <finish/>
+</railwaypackage:RailwayLayout>

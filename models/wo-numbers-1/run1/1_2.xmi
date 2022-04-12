@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?>
+<railwaypackage:RailwayLayout xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:railwaypackage="prolan.example.railwaypackage" xsi:schemaLocation="prolan.example.railwaypackage ../../../model/railway.ecore">
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.20"/>
+  <elements xsi:type="railwaypackage:Turnout" from="//@start" straight="//@elements.12" divergent="//@elements.13"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.1 //@elements.2"/>
+  <elements xsi:type="railwaypackage:Turnout" from="//@finish" straight="//@finish" divergent="//@start"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.2 //@elements.3"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.5 //@start"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@finish //@elements.21"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.6 //@elements.7"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.1 //@elements.13"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.6 //@elements.12"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.6 //@elements.18"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@finish //@elements.19"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.3 //@elements.13"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@finish //@elements.13"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.6 //@elements.9"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.18 //@elements.21"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.8 //@elements.19"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.1 //@elements.2"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.12 //@elements.18"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.14 //@elements.21"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@finish //@elements.15"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.1 //@elements.12"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.15 //@elements.19"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.8 //@elements.19"/>
+  <elements xsi:type="railwaypackage:Segment" connected="//@elements.3 //@start"/>
+  <start connected="//@start"/>
+  <finish connected="//@start"/>
+</railwaypackage:RailwayLayout>
