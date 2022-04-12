@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><?eclipse version="3.0"?><!--
+--><plugin>
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <!-- @generated railway -->
+    <package class="railwaypackage.RailwaypackagePackage" genModel="model/railway.genmodel" uri="prolan.example.railwaypackage"/>
+  </extension>
+  <extension id="queries.Railwayqueries" point="org.eclipse.viatra.query.runtime.queryspecification">
+    <group group="org.eclipse.viatra.query.runtime.extensibility.SingletonExtensionFactory:queries.Railwayqueries" id="queries.Railwayqueries">
+      <query-specification fqn="queries.directlyConnected"/>
+      <query-specification fqn="queries.multipleConnected"/>
+      <query-specification fqn="queries.symmetricConnected"/>
+      <query-specification fqn="queries.turnoutSameFromStraight"/>
+      <query-specification fqn="queries.turnoutSameFromDivergent"/>
+      <query-specification fqn="queries.turnoutSameStraightDivergent"/>
+      <query-specification fqn="queries.directlyConnectedTurnouts"/>
+      <query-specification fqn="queries.loopTurnouts"/>
+      <query-specification fqn="queries.signalNotConnected"/>
+      <query-specification fqn="queries.segmentNotConnected"/>
+      <query-specification fqn="queries.signalMoreThanOne"/>
+      <query-specification fqn="queries.segmentMoreThanTwo"/>
+      <query-specification fqn="queries.turnOutMoreThanTree"/>
+      <query-specification fqn="queries.reachableSignals"/>
+      <query-specification fqn="queries.unreachableSegments"/>
+      <query-specification fqn="queries.reachableElement"/>
+      <query-specification fqn="queries.unreachableElement"/>
+      <query-specification fqn="queries.SignalLengthNot0"/>
+      <query-specification fqn="queries.TurnoutLengthTooLow"/>
+      <query-specification fqn="queries.TurnoutLengthTooHigh"/>
+      <query-specification fqn="queries.SegmentLengthTooLow"/>
+      <query-specification fqn="queries.SegmentLengthTooHigh"/>
+      <query-specification fqn="queries.triangleInequality"/>
+      <query-specification fqn="queries.incorrectLength"/>
+    </group>
+  </extension>
+</plugin>

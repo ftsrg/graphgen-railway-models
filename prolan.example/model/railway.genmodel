@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/prolan.example/src" modelPluginID="prolan.example"
+    modelName="Railway" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>railway.ecore</foreignModel>
+  <genPackages prefix="Railwaypackage" disposableProviderFactory="true" ecorePackage="railway.ecore#/">
+    <genClasses ecoreClass="railway.ecore#//RailwayLayout">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference railway.ecore#//RailwayLayout/elements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference railway.ecore#//RailwayLayout/start"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference railway.ecore#//RailwayLayout/finish"/>
+    </genClasses>
+    <genClasses ecoreClass="railway.ecore#//Segment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference railway.ecore#//Segment/connected"/>
+    </genClasses>
+    <genClasses ecoreClass="railway.ecore#//Turnout">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference railway.ecore#//Turnout/from"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference railway.ecore#//Turnout/straight"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference railway.ecore#//Turnout/divergent"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="railway.ecore#//RailwayElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute railway.ecore#//RailwayElement/length"/>
+    </genClasses>
+    <genClasses ecoreClass="railway.ecore#//Signal">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference railway.ecore#//Signal/connected"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

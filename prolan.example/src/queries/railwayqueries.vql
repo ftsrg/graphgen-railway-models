@@ -1,0 +1,196 @@
+package queries
+
+import "prolan.example.railwaypackage"
+
+pattern directlyConnected(r1 : RailwayElement, r2 : RailwayElement) {
+	Turnout.straight(r1,r2);
+} or {
+	Turnout.divergent(r1,r2);
+} or {
+	Turnout.from(r1,r2);
+} or {
+	Signal.connected(r1,r2);
+} or {
+	Segment.connected(r1,r2);
+} 
+
+@Constraint(key={r1,r2},severity="error",message ="Railway elements are connected in multiple way.")
+pattern multipleConnected(r1 : RailwayElement, r2 : RailwayElement) {
+	find directlyConnected(r1,r2);
+	Signal.connected(r2,r1);
+} or {
+	find directlyConnected(r1,r2);
+	Segment.connected(r2,r1);
+}
+
+pattern symmetricConnected(r1 : RailwayElement, r2 : RailwayElement) {
+	find directlyConnected(r1,r2);
+} or {
+	find directlyConnected(r2,r1);
+}
+
+
+// Turnouts
+@Constraint(key={t},severity="error",message ="Same direction in turnouts")
+pattern turnoutSameFromStraight(t: Turnout) {
+	Turnout.from(t,same);
+	Turnout.straight(t,same);
+}
+@Constraint(key={t},severity="error",message ="Same direction in turnouts")
+pattern turnoutSameFromDivergent(t: Turnout) {
+	Turnout.from(t,same);
+	Turnout.divergent(t,same);
+}
+@Constraint(key={t},severity="error",message ="Same direction in turnouts")
+pattern turnoutSameStraightDivergent(t: Turnout) {
+	Turnout.straight(t,same);
+	Turnout.divergent(t,same);
+}
+@Constraint(key={t1,t2},severity="error",message ="Turnouts need to be connected symmetrically")
+pattern directlyConnectedTurnouts(t1: Turnout, t2: Turnout) {
+	find directlyConnected(t1,t2);
+	neg find directlyConnected(t2,t1);
+}
+
+@Constraint(key={t},severity="error",message ="loop turnouts")
+pattern loopTurnouts(t: Turnout) {
+	Turnout.from(t,t);
+} or {
+	Turnout.straight(t,t);
+} or {
+	Turnout.divergent(t,t);
+}
+
+// Lower limit
+
+@Constraint(key={s},severity="error",message ="Signal not connected")
+pattern signalNotConnected(s : Signal) {
+	neg find symmetricConnected(s,_);
+}
+
+@Constraint(key={s},severity="error",message ="Segment not connected")
+pattern segmentNotConnected(s : Segment) {
+	neg find symmetricConnected(s,_);
+}
+
+// Upper limit
+@Constraint(key={s},severity="error",message ="More than one connections!")
+pattern signalMoreThanOne(s: Signal) {
+	find symmetricConnected(s,t1);
+	find symmetricConnected(s,t2);
+	t1 != t2;
+}
+@Constraint(key={s},severity="error",message ="More than two connections!")
+pattern segmentMoreThanTwo(s: Segment) {
+	find symmetricConnected(s,t1);
+	find symmetricConnected(s,t2);
+	find symmetricConnected(s,t3);
+	t1!=t2; t2!=t3; t1!=t3;
+}
+@Constraint(key={t},severity="error",message ="Another element points to Turnout, thus potentially more than three connections!")
+pattern turnOutMoreThanTree(t: Turnout) {
+	Signal.connected(_,t);
+} or {
+	Segment.connected(_,t);
+}
+
+// Reachability
+pattern reachableSignals(s1 : Signal, s2 : Signal) {
+	find symmetricConnected+(s1,s2);
+}
+@Constraint(key={r},severity="error",message ="Start and Finish are not reachable!")
+pattern unreachableSegments(r: RailwayLayout, start : Signal, finish: Signal) {
+	RailwayLayout.start(r,start);
+	RailwayLayout.finish(r,finish);
+	neg find reachableSignals(start, finish);
+}
+pattern reachableElement(r: RailwayLayout, e: RailwayElement) {
+	RailwayLayout.start(r,start);
+	RailwayLayout.elements(r,e);
+	find symmetricConnected+(start,e); 
+}
+@Constraint(key={r,e},severity="error",message ="Elemen not reachable!")
+pattern unreachableElement(r: RailwayLayout, e: RailwayElement) {
+	RailwayLayout.elements(r,e);
+	neg find reachableElement(r,e);
+}
+
+@Constraint(key={s},severity="error",message ="Signal length must be 0!")
+pattern SignalLengthNot0(s: Signal) {
+	Signal.length(s,length);
+	check(length != 0);
+}
+
+@Constraint(key={t},severity="error",message ="Turnout length lower than 10!")
+pattern TurnoutLengthTooLow(t: Turnout) {
+	Turnout.length(t,length);
+	check(length < 10);
+}
+@Constraint(key={t},severity="error",message ="Turnout length higher than 20!")
+pattern TurnoutLengthTooHigh(t: Turnout) {
+	Turnout.length(t,length);
+	check(length > 20);
+}
+
+@Constraint(key={s},severity="error",message ="Segment length lower than 15!")
+pattern SegmentLengthTooLow(s: Segment) {
+	Segment.length(s,length);
+	check(length < 15);
+}
+@Constraint(key={s},severity="error",message ="Segment length higher than 50!")
+pattern SegmentLengthTooHigh(s: Segment) {
+	Segment.length(s,length);
+	check(length > 50);
+}
+@Constraint(key={a,b,c},severity="error",message ="Triangle inequivalence is violated!")
+pattern triangleInequality(a: RailwayElement, b: RailwayElement, c: RailwayElement) {
+	find symmetricConnected(a,b);
+	find symmetricConnected(b,c);
+	find symmetricConnected(c,a);
+	RailwayElement.length(a,al);
+	RailwayElement.length(b,bl);
+	RailwayElement.length(c,cl);
+	check(al+bl<cl);
+}
+@Constraint(key={r},severity="error",message ="Length from Start to Finish is incorrect!")
+pattern incorrectLength(r: RailwayLayout, start : Signal, finish: Signal) {
+	RailwayLayout.start(r,start);
+	RailwayLayout.finish(r,finish);
+	find symmetricConnected(start, m1);
+	find symmetricConnected(m1, finish);
+	RailwayElement.length(m1,l1);
+	check(l1<50);
+} or {
+	RailwayLayout.start(r,start);
+	RailwayLayout.finish(r,finish);
+	find symmetricConnected(start, m1);
+	find symmetricConnected(m1, m2);
+	find symmetricConnected(m2, finish);
+	RailwayElement.length(m1,l1);
+	RailwayElement.length(m2,l2);
+	check(l1+l2<50);
+} or {
+	RailwayLayout.start(r,start);
+	RailwayLayout.finish(r,finish);
+	find symmetricConnected(start, m1);
+	find symmetricConnected(m1, m2);
+	find symmetricConnected(m2, m3);
+	find symmetricConnected(m3, finish);
+	RailwayElement.length(m1,l1);
+	RailwayElement.length(m2,l2);
+	RailwayElement.length(m3,l3);
+	check(l1+l2+l3<50);
+} or {
+	RailwayLayout.start(r,start);
+	RailwayLayout.finish(r,finish);
+	find symmetricConnected(start, m1);
+	find symmetricConnected(m1, m2);
+	find symmetricConnected(m2, m3);
+	find symmetricConnected(m3, m4);
+	find symmetricConnected(m4, finish);
+	RailwayElement.length(m1,l1);
+	RailwayElement.length(m2,l2);
+	RailwayElement.length(m3,l3);
+	RailwayElement.length(m4,l4);
+	check(l1+l2+l3+l4<50);
+}

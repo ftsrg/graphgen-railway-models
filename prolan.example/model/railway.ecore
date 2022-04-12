@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="railwaypackage" nsURI="prolan.example.railwaypackage" nsPrefix="railwaypackage">
+  <eClassifiers xsi:type="ecore:EClass" name="RailwayLayout">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//RailwayElement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="start" lowerBound="1" eType="#//Signal"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="finish" lowerBound="1"
+        eType="#//Signal" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Segment" eSuperTypes="#//RailwayElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connected" upperBound="2"
+        eType="#//RailwayElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Turnout" eSuperTypes="#//RailwayElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="from" lowerBound="1" eType="#//RailwayElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="straight" lowerBound="1"
+        eType="#//RailwayElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="divergent" eType="#//RailwayElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RailwayElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="length" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Signal" eSuperTypes="#//RailwayElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connected" eType="#//RailwayElement"/>
+  </eClassifiers>
+</ecore:EPackage>
