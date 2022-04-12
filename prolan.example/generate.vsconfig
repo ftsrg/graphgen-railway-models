@@ -1,0 +1,21 @@
+import epackage "prolan.example.railwaypackage"
+import viatra "platform:/resource/prolan.example/src/queries/railwayqueries.vql"
+
+generate {
+	metamodel = { package railwaypackage }
+	constraints = { package queries.Railwayqueries }
+	partial-model = { "platform:/resource/prolan.example/model/initial.xmi" }
+	solver = ViatraSolver
+	scope = { 
+		#node += 4,
+		#<Turnout> += 2..2,
+		#<Segment> += 2..2,
+		#<Signal> += 0 // 
+	}
+	number = 3
+	runs = 1
+	config = {log-level = normal,"scopePropagator"="typeHierarchy", "numeric-solver-at-end"="true"}
+	debug =			"platform:/resource/prolan.example/output/debug" 
+	output =		"platform:/resource/prolan.example/output/models"
+	statistics =	"platform:/resource/prolan.example/output/statistics.csv"
+}
